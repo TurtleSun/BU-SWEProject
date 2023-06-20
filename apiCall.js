@@ -43,8 +43,8 @@ async function apiFetch() {
 
 async function fetch(response){
     city = response; //can give back an object that can be broken down to give cities and extra
-    var data = await apiFetch();
-    await processWeatherData(data);
+    var data = await apiFetch(); // all here rn won't be here later, instead this should call daily and weekly
+    await processWeatherData(data); //based on toggle
 }
 
   function processWeatherData(response) {
@@ -54,4 +54,17 @@ async function fetch(response){
     for (var i=0;i<days.length;i++) {
       console.log(days[i].datetime+": tempmax="+days[i].tempmax+", tempmin="+days[i].tempmin);
     }
+  }
+
+  // function for normal
+  // toggle for day or weekly -> this will actually be part of the controller.py
+  // dayly = hourly forcast
+  // a threshold for the wind speed, humidity, and UV index (and obviously, temp)
+  function daily(location) {
+
+  }
+  // weekly = current + forcast of each day
+  // function for "human"
+  function weekly(location){
+    // weekly should call daily
   }
