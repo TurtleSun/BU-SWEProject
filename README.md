@@ -18,16 +18,3 @@ Non functional requirement: Users shall be able to choose to only receive inform
 Functional requirement: There will be a toggle that allows users to switch between a daily and weekly mode.
 
 Functional requirement: The daily mode will show the current weather as well as hourly forecasts and the weekly mode will show the current weather as well as forecasts for each day.
-
-
-APIs Used: 
-Geolocation API - https://www.abstractapi.com/api/ip-geolocation-api Check your email
-Weather API - https://weatherstack.com/ User: mlxs@bu.edu Pass: COMP411
-
-Database Stores: 
-preferred temp
-time would like notifications
-
-https://github.com/public-apis/public-apis 
-https://www.heroku.com/ 
-
