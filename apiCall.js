@@ -52,7 +52,7 @@ function getWeather() {
     .then(data => {
       // Process the weather data here
       console.log(data); // Replace with your own data handling logic
-      processWeatherData(data)
+      processWeatherData_Day(data)
     })
     .catch(error => {
       console.error('Error:', error);
@@ -60,7 +60,7 @@ function getWeather() {
 
   //processWeatherData(weather)
 }
-function processWeatherData(weatherData) {
+function processWeatherData_Day(weatherData) {
   /*   var location=response[address];
     var days=response[days];
     console.log("Location: "+location);
@@ -74,28 +74,49 @@ function processWeatherData(weatherData) {
         const date = day.datetime;
         const maxTemp = day.tempmax;
         const minTemp = day.tempmin;
-        const conditions = day.conditions;
+        const windSpeed = day.windspeed;
+        const humidity = day.humidity;
+        const uvIndex = day.uvindex;
   
         // Process the day's data or perform any other operations
         console.log(`Date: ${date}`);
-        console.log(`Max Temperature: ${maxTemp}`);
-        console.log(`Min Temperature: ${minTemp}`);
-        console.log(`Conditions: ${conditions}`);
+        console.log(`Daily Max Temperature: ${maxTemp}`);
+        console.log(`Daily Min Temperature: ${minTemp}`);
+        console.log(`Daily windSpeed: ${windSpeed}`);
+        console.log(`Daily Humidity: ${humidity}`);
+        console.log(`Daily UV Index: ${uvIndex}`);
+        console.log('------');
+      },
+      //for the last one, to show how processWeatherData_Hour works
+      processWeatherData_Hour(weatherData.days[0]));
+    } else {
+      console.log('Weather data is not available or incomplete.');
+    }
+}
+function processWeatherData_Hour(weatherData) {
+    // Assuming you have the weatherData object with the retrieved data
+    if (weatherData && weatherData.hours) {
+      weatherData.hours.forEach((hour) => {
+        // Access individual hour properties
+        const time = hour.datetime;
+        const temperature = hour.temp;
+        const windSpeed = hour.windspeed;
+        const humidity = hour.humidity;
+        const uvIndex = hour.uvindex;
+  
+        // Process the hour's data or perform any other operations
+        console.log(`Hourly Time: ${time}`);
+        console.log(`Hourly Temperature: ${temperature}`);
+        console.log(`Hourly Wind Speed: ${windSpeed}`);
+        console.log(`Hourly Humidity: ${humidity}`);
+        console.log(`Hourly UV Index: ${uvIndex}`);
         console.log('------');
       });
     } else {
       console.log('Weather data is not available or incomplete.');
     }
+}
   
-  }
-/* async function fetch(){
-    //city = response; //can give back an object that can be broken down to give cities and extra
-    var data = await getWeather(); // all here rn won't be here later, instead this should call daily and weekly
-    if (data){
-      console.log("I HAVE DATA!")
-    }
-   //processWeatherData(data); //based on toggle
-} */
 
 
   // function for normal
