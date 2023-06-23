@@ -1,60 +1,102 @@
-const API_KEY = J963356MBQTJDELDUP74WUQPA;
-var city = null;
-const API_URL = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=us&include=fcst&key=${API_KEY}&contentType=json`;
-
+//const API_KEY = 'J963356MBQTJDELDUP74WUQPA';
+//var city = 'New York, USA';
+//const API_URL = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/' + 'Boston' + '?unitGroup=us&include=fcst&key=' + 'J963356MBQTJDELDUP74WUQPA' + '&contentType=json';
+const API_URL = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Boston?key=J963356MBQTJDELDUP74WUQPA ";
+let weather;
 /**
  * API call: GET request to fetch weather data.
  * @returns The response JSON.
  */
-async function apiFetch() {
+/* async function apiFetch() {
     const response = await fetch(API_URL, {
-        method: 'GET',
-        headers: {
-            'message': 'OK!'
+        "method": "GET",
+        "headers": {
         }
-    }).then(response => {
-        if (!response.ok) {
-          throw response; //check the http response code and if isn't ok then throw the response as an error
-        }
-                  
-        return response.json(); //parse the result as JSON
-      
-      }).then(response => {
-        //response now contains parsed JSON ready for use
-        processWeatherData(response);
-      
-      }).catch((errorResponse) => {
-        if (errorResponse.text) { //additional error information
-          errorResponse.text().then( errorMessage => {
-            //errorMessage now returns the response body which includes the full error message
-          })
-        } else {
-          //no additional error information 
-        } 
+        })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => {
+        console.error(err);
       });
-
+    
+    //console.log(response);
     console.log('API call: Weather Data');
-    const data = await response.json();
-    console.log(data);
+    //var data = await response.json();
+    //console.log(data);
+    return response;
+} */
 
-    return data;
+/* async function apiFetch() {
+  var response = fetch (API_URL,{
+    "method": "GET",
+    "headers": {
+    }
+    })
+  .then(response => {
+    console.log(response);
+  })
+  .catch(err => {
+    console.error(err);
+  });
+} */
+
+function getWeather() {
+  //const apiKey = 'J963356MBQTJDELDUP74WUQPA';
+  //const location = 'New York, USA'; // Replace with your desired location
+
+  //const apiUrl = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${encodeURIComponent(location)}?key=${apiKey}`;
+
+  fetch(API_URL)
+    .then(response => response.json())
+    .then(data => {
+      // Process the weather data here
+      console.log(data); // Replace with your own data handling logic
+      processWeatherData(data)
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+
+  //processWeatherData(weather)
 }
-
-
-async function fetch(response){
-    city = response; //can give back an object that can be broken down to give cities and extra
-    var data = await apiFetch(); // all here rn won't be here later, instead this should call daily and weekly
-    await processWeatherData(data); //based on toggle
-}
-
-  function processWeatherData(response) {
-    var location=response.resolvedAddress;
-    var days=response.days;
+function processWeatherData(weatherData) {
+  /*   var location=response[address];
+    var days=response[days];
     console.log("Location: "+location);
     for (var i=0;i<days.length;i++) {
       console.log(days[i].datetime+": tempmax="+days[i].tempmax+", tempmin="+days[i].tempmin);
+    } */
+    // Assuming you have the weatherData object with the retrieved data
+    if (weatherData && weatherData.days) {
+      weatherData.days.forEach((day) => {
+        // Access individual day properties
+        const date = day.datetime;
+        const maxTemp = day.tempmax;
+        const minTemp = day.tempmin;
+        const conditions = day.conditions;
+  
+        // Process the day's data or perform any other operations
+        console.log(`Date: ${date}`);
+        console.log(`Max Temperature: ${maxTemp}`);
+        console.log(`Min Temperature: ${minTemp}`);
+        console.log(`Conditions: ${conditions}`);
+        console.log('------');
+      });
+    } else {
+      console.log('Weather data is not available or incomplete.');
     }
+  
   }
+/* async function fetch(){
+    //city = response; //can give back an object that can be broken down to give cities and extra
+    var data = await getWeather(); // all here rn won't be here later, instead this should call daily and weekly
+    if (data){
+      console.log("I HAVE DATA!")
+    }
+   //processWeatherData(data); //based on toggle
+} */
+
 
   // function for normal
   // toggle for day or weekly -> this will actually be part of the controller.py
