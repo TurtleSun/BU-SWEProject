@@ -1,4 +1,9 @@
 # BU-SWEProject
+
+**PLEASE NOTE:**
+**THIS PROJECT WAS MOVED TO weatherproject-cs411!**
+
+
 Project Idea - Weather Notifier
 
 User Story 1: I am a user who feels temperature alone does not capture the weather. I would like factors such as humidity to be included in the report I receive so I can get a more accurate picture of what it feels like outside.
